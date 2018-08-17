@@ -34,6 +34,20 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             });
 
-       
+        arFragment.setOnTapArPlaneListener(
+            (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
+                if (modelRenderable == null) return;
+
+                // Create the Anchor.
+                Anchor anchor = hitResult.createAnchor();
+                AnchorNode anchorNode = new AnchorNode(anchor);
+                anchorNode.setParent(arFragment.getArSceneView().getScene());
+
+                // Create the transformable andy and add it to the anchor.
+                TransformableNode model = new TransformableNode(arFragment.getTransformationSystem());
+                model.setParent(anchorNode);
+                model.setRenderable(modelRenderable);
+                model.select();
+            });
     }
 }
