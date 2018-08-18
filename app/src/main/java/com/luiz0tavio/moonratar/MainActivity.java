@@ -9,13 +9,18 @@ import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.rendering.MaterialFactory;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ModelRenderable modelRenderable;
+    private ModelRenderable booRenderable;
+    private ModelRenderable spiderRenderable;
+
+    private int modelCount = 0;
+
     private ArFragment arFragment;
 
     @Override
@@ -26,27 +31,39 @@ public class MainActivity extends AppCompatActivity {
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.activity_main);
 
         ModelRenderable.builder()
-            .setSource(this, R.raw.sceneform_default_light_probes)
+            .setSource(this, R.raw.boo)
             .build()
-            .thenAccept(renderable -> modelRenderable = renderable)
+            .thenAccept(renderable -> booRenderable = renderable)
             .exceptionally(throwable -> {
                 Log.e(MainActivity.class.getSimpleName(), "Unable to load Renderable.", throwable);
                 return null;
             });
 
+        ModelRenderable.builder()
+                .setSource(this, R.raw.spider)
+                .build()
+                .thenAccept(renderable -> spiderRenderable = renderable)
+                .exceptionally(throwable -> {
+                    Log.e(MainActivity.class.getSimpleName(), "Unable to load Renderable.", throwable);
+                    return null;
+                });
+
+
         arFragment.setOnTapArPlaneListener(
             (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
-                if (modelRenderable == null) return;
+                if (booRenderable == null || spiderRenderable == null) return;
 
                 // Create the Anchor.
                 Anchor anchor = hitResult.createAnchor();
                 AnchorNode anchorNode = new AnchorNode(anchor);
                 anchorNode.setParent(arFragment.getArSceneView().getScene());
 
+                modelCount++;
+
                 // Create the transformable andy and add it to the anchor.
                 TransformableNode model = new TransformableNode(arFragment.getTransformationSystem());
                 model.setParent(anchorNode);
-                model.setRenderable(modelRenderable);
+                model.setRenderable(modelCount % 2 == 0 ? booRenderable : spiderRenderable);
                 model.select();
             });
     }

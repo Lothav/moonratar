@@ -1,0 +1,185 @@
+{
+   bound_relative_root: {
+      x: 0.5,
+      y: 0,
+      z: 0.5,
+   },
+   materials: [
+      {
+         name: "Spider",
+         parameters: [
+            {
+               baseColor: "Spinnen_Bein_tex",
+            },
+            {
+               baseColorTint: [
+                  1,
+                  1,
+                  1,
+                  1,
+               ],
+            },
+            {
+               metallic: 1,
+            },
+            {
+               roughness: 0.225719,
+            },
+            {
+               opacity: null,
+            },
+         ],
+         source: "build/sceneform_sdk/default_materials/obj_material.sfm",
+      },
+      {
+         name: "Spider_Eye",
+         parameters: [
+            {
+               baseColor: null,
+            },
+            {
+               baseColorTint: [
+                  1,
+                  1,
+                  1,
+                  1,
+               ],
+            },
+            {
+               metallic: 1,
+            },
+            {
+               roughness: 0.048471,
+            },
+            {
+               opacity: null,
+            },
+         ],
+         source: "build/sceneform_sdk/default_materials/obj_material.sfm",
+      },
+      {
+         name: "Spider_Fur",
+         parameters: [
+            {
+               baseColor: "SH3",
+            },
+            {
+               baseColorTint: [
+                  0.724827,
+                  0.724827,
+                  0.724827,
+                  1,
+               ],
+            },
+            {
+               metallic: 0,
+            },
+            {
+               roughness: 1,
+            },
+            {
+               opacity: null,
+            },
+         ],
+         source: "build/sceneform_sdk/default_materials/obj_material.sfm",
+      },
+      {
+         name: "Spider_NONE",
+         parameters: [
+            {
+               baseColor: "Spinnen_Bein_tex_2",
+            },
+            {
+               baseColorTint: [
+                  1,
+                  1,
+                  1,
+                  1,
+               ],
+            },
+            {
+               metallic: 1,
+            },
+            {
+               roughness: 0.225719,
+            },
+            {
+               opacity: null,
+            },
+         ],
+         source: "build/sceneform_sdk/default_materials/obj_material.sfm",
+      },
+      {
+         name: "Spider_teeth",
+         parameters: [
+            {
+               baseColor: null,
+            },
+            {
+               baseColorTint: [
+                  0.41320400000000002,
+                  0.31126300000000001,
+                  0.221805,
+                  1,
+               ],
+            },
+            {
+               metallic: 0,
+            },
+            {
+               roughness: 1,
+            },
+            {
+               opacity: null,
+            },
+         ],
+         source: "build/sceneform_sdk/default_materials/obj_material.sfm",
+      },
+   ],
+   model: {
+      attributes: [
+         "Position",
+         "TexCoord",
+         "Orientation",
+      ],
+      collision: {},
+      file: "sampledata/spider/spider.obj",
+      name: "spider",
+      recenter: "root",
+      scale: 0.016827000000000002,
+   },
+   samplers: [
+      {
+         file: "sampledata/spider/textures/SH3.png",
+         name: "SH3",
+         pipeline_name: "textures/SH3.png",
+      },
+      {
+         file: "sampledata/spider/textures/SH33.png",
+         name: "SH33",
+         params: {
+            usage_type: "Data",
+         },
+         pipeline_name: "textures/SH33.png",
+      },
+      {
+         file: "sampledata/spider/textures/Spinnen_Bein_tex.jpg",
+         name: "Spinnen_Bein_tex",
+         pipeline_name: "textures/Spinnen_Bein_tex.jpg",
+      },
+      {
+         file: "sampledata/spider/textures/Spinnen_Bein_tex_2.jpg",
+         name: "Spinnen_Bein_tex_2",
+         pipeline_name: "textures/Spinnen_Bein_tex_2.jpg",
+      },
+      {
+         file: "sampledata/spider/textures/haar_detail_NRM.jpg",
+         name: "haar_detail_NRM",
+         params: {
+            usage_type: "Data",
+         },
+         pipeline_name: "textures/haar_detail_NRM.jpg",
+      },
+   ],
+   version: "0.52:1",
+}
