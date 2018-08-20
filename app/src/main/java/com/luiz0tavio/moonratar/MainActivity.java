@@ -9,10 +9,16 @@ import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
-import com.google.ar.sceneform.rendering.MaterialFactory;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
+
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.os.Build;
+import android.os.Build.VERSION_CODES;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!checkIsSupportedDeviceOrFinish(this)) {
+            return;
+        }
+
         setContentView(R.layout.activity_main);
 
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.activity_main);
@@ -67,4 +78,31 @@ public class MainActivity extends AppCompatActivity {
                 model.select();
             });
     }
+
+    public static boolean checkIsSupportedDeviceOrFinish(final Activity activity) {
+
+        if (Build.VERSION.SDK_INT < VERSION_CODES.N) {
+            Log.e(activity.getLocalClassName(), "Sceneform requires Android N or later");
+            Toast.makeText(activity, "Sceneform requires Android N or later", Toast.LENGTH_LONG).show();
+            activity.finish();
+            return false;
+        }
+
+        String openGlVersionString =
+            ((ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE))
+                .getDeviceConfigurationInfo()
+                .getGlEsVersion();
+
+        if (Double.parseDouble(openGlVersionString) < 3.0) {
+            Log.e(activity.getLocalClassName(), "Sceneform requires OpenGL ES 3.0 later");
+            Toast.makeText(activity, "Sceneform requires OpenGL ES 3.0 or later", Toast.LENGTH_LONG)
+                    .show();
+            activity.finish();
+            return false;
+        }
+
+        return true;
+    }
+
+
 }
